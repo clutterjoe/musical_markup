@@ -11,7 +11,7 @@ var crash =     new DrumModel(audio_context, ['audio/crash1.mp3', 'audio/crash2.
 
 var currentPlayTime = 0;
 var totalPlayTime = 0;
-var bpm = 140;
+var bpm = 110;
 
 var cur_beat = 1;
 var char_count = 0;

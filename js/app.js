@@ -8,16 +8,18 @@ var snr = new DrumModel(audio_context, ['audio/snr1.mp3','audio/snr2.mp3']);
 var hh = new DrumModel(audio_context, ['audio/hh1.mp3','audio/hh2.mp3','audio/hh3.mp3']);
 var tom1 = new DrumModel(audio_context, ['audio/tom1.mp3', 'audio/tom2.mp3']);
 var tom_floor = new DrumModel(audio_context, ['audio/tom_floor1.mp3', 'audio/tom_floor2.mp3']);
-//var crash = new DrumModel(audio_context, ['audio/crash.mp3', 'audio/crash.mp3']);
+var crash = new DrumModel(audio_context, ['audio/crash1.mp3', 'audio/crash2.mp3']);
 
 
 var currentPlayTime = 0;
 var totalPlayTime = 0;
-var bpm = 60;
+var bpm = 120;
+
+
 
 var cur_beat = 1;
 var char_count = 0;
-var interval = Math.floor((1000 / 16) * 4);
+var interval = Math.floor((1000 / 16) * (60 / bpm) * 4);
 
 function play() {
   setInterval(function() {

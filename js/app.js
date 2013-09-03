@@ -17,11 +17,11 @@ var char_count = 0;
 var interval = Math.floor((1000 / 16) * (60 / bpm) * 4);
 var measure = 1;
 
+
 function play() {
   setInterval(function() {
     char_count += 1;
     currentPlayTime += interval;
-
     if (cur_beat == 1 && measure == 1) {
     crash.playSound();
     }
@@ -36,27 +36,23 @@ function play() {
       snr.playSound();
     }
     if (measure == 4){
-      if (cur_beat > 10) {
+      if (cur_beat >= 10) {
         rndm = Math.random();
-        if (rndm < 0.3) {
+        if (rndm < 0.25) {
           tom1.playSound();
         } 
         else {
-          if (rndm < 0.7) {
+          if (rndm < 0.5) {
             tom_floor.playSound();
           }
           else {
-          if (rndm < 0.85) {
-            crash.playSound();
+            if (rndm < 0.75) {
+              crash.playSound();
+            }
           }
-  
-          }
-          
         } 
-                
       }      
     }
-
     cur_beat++;
     if (cur_beat > 16) {
       cur_beat = 1;
@@ -72,7 +68,7 @@ function play() {
 function init() {
   
   setTimeout(function() {
-    if (kik.isReady() && snr.isReady() && hh.isReady()) {
+    if (kik.isReady() && snr.isReady() && hh.isReady() && crash.isReady() && tom1.isReady() && tom_floor.isReady()) {
       play();
     } else {
       console.log('drums not ready');

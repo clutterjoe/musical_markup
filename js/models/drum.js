@@ -10,6 +10,7 @@ var DrumModel = Backbone.Model.extend({
     this.sound_files = sound_files;
     this.audio = [];
     this.ready = false;
+    this.gainNode = audio_context.createGain();
     var callback = [];
     var $this = this;
     for (i=0;i<this.sound_files.length;i++) {
@@ -38,11 +39,25 @@ var DrumModel = Backbone.Model.extend({
   request.send();
   },
   playSound: function (velocity) {
+    // humanize the beat
+    min_delay = 0;
+    max_delay = 8;
+    delay = Math.floor(Math.random() * max_delay);
+    max_gain = 1;
+    min_gain = 0.0;
+    gain = Math.random() * (max_gain - min_gain ) + min_gain;
+    gainNode = audio_context.createGain();
+    gainNode.gain.value = gain;
+
+console.log(delay + ' ' + gain);    
     audio_key = 0; // Math.floor(velocity / Math.floor(127 / this.audio.length));
-  audio_key = Math.floor(Math.random() * this.audio.length);
+    audio_key = Math.floor(Math.random() * this.audio.length);
     var source = audio_context.createBufferSource(); // creates a sound source
     source.buffer = this.audio[audio_key];                    // tell the source which sound to play
     source.connect(audio_context.destination);       // connect the source to the context's destination (the speakers)
-    source.start(0);                           // play the source now  
+    source.connect(gainNode);
+    setTimeout(function() {
+      source.start(0);                           // play the source now  
+    }, delay);
   }
 });

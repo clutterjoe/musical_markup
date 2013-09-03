@@ -8,9 +8,10 @@ var tom1 =      new DrumModel(audio_context, ['audio/tom1.mp3', 'audio/tom2.mp3'
 var tom_floor = new DrumModel(audio_context, ['audio/tom_floor1.mp3', 'audio/tom_floor2.mp3']);
 var crash =     new DrumModel(audio_context, ['audio/crash1.mp3', 'audio/crash2.mp3']);
 
+
 var currentPlayTime = 0;
 var totalPlayTime = 0;
-var bpm = 120;
+var bpm = 140;
 
 var cur_beat = 1;
 var char_count = 0;
@@ -19,7 +20,8 @@ var measure = 1;
 var play_state = true;
 
 function play() {
-  setInterval(function() {
+  setTimeout(function() {
+    interval = Math.floor((1000 / 16) * (60 / bpm) * 4);
     if (play_state == true) {
         
       char_count += 1;
@@ -65,7 +67,7 @@ function play() {
         
       }
     }
-
+  play();
   }, interval);   
 }
 
@@ -92,6 +94,13 @@ $(document).ready(function() {
       $(this).html('Pause');
       play_state = true;
     }
+  });
+
+  $('#cur_bpm').html(bpm);
+  $('#set_bpm').val(bpm);
+  $('#set_bpm').change(function() {
+   bpm = $(this).val();
+   $('#cur_bpm').html($(this).val());
   });
 });
 

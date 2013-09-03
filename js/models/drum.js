@@ -41,7 +41,7 @@ var DrumModel = Backbone.Model.extend({
   playSound: function (velocity) {
     // humanize the beat
     min_delay = 0;
-    max_delay = 8;
+    max_delay = 17;
     delay = Math.floor(Math.random() * max_delay);
     max_gain = 1;
     min_gain = 0.0;

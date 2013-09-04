@@ -77,3 +77,18 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+#display_char {
+  font-size: 5em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-decoration: underline;
+  margin: 15px;
+  padding: 25px;
+  border: 1px #ccc solid;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+}

@@ -5,7 +5,8 @@ var DrumModel = Backbone.Model.extend({
     audio: [],
     ready: []
   },
-  constructor: function(audio_context, sound_files) {
+  constructor: function(drum, audio_context, sound_files) {
+    this.drum = drum;
     this.audio_context = audio_context;
     this.sound_files = sound_files;
     this.audio = [];
@@ -49,7 +50,6 @@ var DrumModel = Backbone.Model.extend({
     gainNode = audio_context.createGain();
     gainNode.gain.value = gain;
 
-console.log(delay + ' ' + gain);    
     audio_key = 0; // Math.floor(velocity / Math.floor(127 / this.audio.length));
     audio_key = Math.floor(Math.random() * this.audio.length);
     var source = audio_context.createBufferSource(); // creates a sound source

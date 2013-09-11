@@ -501,6 +501,7 @@ EOB;
     <!-- app -->
     <script src="js/models/drum.js"></script>
     <script src="js/collections/drums.js"></script>
+
     <script src="js/app.js"></script>
 
   </body>

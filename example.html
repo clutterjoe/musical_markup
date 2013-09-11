@@ -18,6 +18,9 @@
                 // Audio generation function            
                 function generateAudio(e) 
                 {
+                freq++;
+                var phaseIncrement = 2 * Math.PI * freq / context.sampleRate;
+
                     // Get the left and right output buffers
                     var left  = e.outputBuffer.getChannelData(0);
                     var right = e.outputBuffer.getChannelData(1);
@@ -54,7 +57,7 @@
                 const NUM_INPUTS = 1; // Works properly in Safari 6 
                  
                 // Frequency of the sine tone.          
-                const SINE_FREQ = 440;
+                var freq = 2000;
                  
                 // Create the audio context
                 var context = new webkitAudioContext();
@@ -68,11 +71,10 @@
                 // Set up the per-sample phase increment based on the desired 
                 // sine tone frequency and the sample rate of the audio context.
                 var currentPhase = 0.0;
-                var phaseIncrement = 2 * Math.PI * SINE_FREQ / context.sampleRate;
                  
                 // Connect the node to a destination, i.e. the audio output.
                 node.connect(context.destination);
-                 
+                   
             </script>
     </head>
      

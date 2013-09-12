@@ -21,8 +21,11 @@ var Instrument = Backbone.Model.extend({
     'C8': 4186.01,
     'rest': null
     },
+  articulationGap: 0.01,
   play: function(pitch, note_duration, velocity, automation) {
-    
     return this;
+  },
+  getArticulationGap: function() {
+    return this.articulationGap;
   }
 });

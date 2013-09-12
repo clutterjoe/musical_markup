@@ -37,8 +37,6 @@
     <script>
  
  
-var note = null;
-
 synth = new BasicSynth('synth')
 console.log(synth);
 setInterval(function() {
@@ -47,7 +45,23 @@ synth.play(250, 'C3', 127);
   
 }, 500);
 
-      var conductor = new Conductor();
+var conductor = new Conductor();
+
+conductor.add( synth );
+conductor.loadBuffer('synth', 'C3', 'q', 64);
+conductor.loadBuffer('synth', 'rest', 'e', 64);
+conductor.loadBuffer('synth', 'C3', 'e', 64);
+conductor.loadBuffer('synth', 'rest', 'q', 64);
+conductor.loadBuffer('synth', 'C3', 'q', 64);
+conductor.loadBuffer('synth', 'rest', 'e', 64);
+conductor.loadBuffer('synth', 'C3', 'e', 64);
+conductor.loadBuffer('synth', 'G3', 'q', 64);
+
+conductor.play();
+
+setTimeout(function() {
+  conductor.pause();
+}, 5000);
 /*
       var conductor = new Conductor();
       conductor.add( synth );

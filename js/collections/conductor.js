@@ -10,7 +10,7 @@ var Conductor = Backbone.Collection.extend({
 
   // Computer time values.
   playTimer: 0,                       // the actual amount of time that has elapsed from the beginning of play
-  previousSampleTime: null,           // the amount of time between each loop around onaudioprocess. Gets set on play
+  previousSampleTime: 0,              // the amount of time between each loop around onaudioprocess. Gets set on play
 
   // Both these values must be true in order to play the song.
   currentlyPlaying: false,            // Is the song currently playing?
@@ -60,8 +60,7 @@ var Conductor = Backbone.Collection.extend({
 
   // Constructor
   initialize: function() {
-    
-    this.ac = new (window.AudioContext || window.webkitAudioContext);
+    this.ac = this.audioContext || (new (window.AudioContext || window.webkitAudioContext));
     this.node = this.ac.createJavaScriptNode(this.bufferSize, this.numInputs, this.numOutputs);
     this.node.connect(this.ac.destination);
 
@@ -77,12 +76,14 @@ var Conductor = Backbone.Collection.extend({
   generateAudio: function() {
     // check the play buffer for notes to be played
     if (this.currentlyPlaying && this.isReadyToPlay) {
-    curTime = new Date().getTime();
-    this.playTimer = this.playTimer + (curTime - this.previousSampleTime);
-console.log(this.ac.currentTime + ' ' + this.playTimer);    
-      
+      this.playTimer = this.playTimer + this.ac.currentTime - this.previousSampleTime;
+      for(i = 0; i < this.models.length; i++) {
+
+
+
+      }
     }
-    this.previousSampleTime = new Date().getTime();
+    this.previousSampleTime = this.ac.currentTime;
   },
 
   pause: function() {
@@ -91,7 +92,6 @@ console.log(this.ac.currentTime + ' ' + this.playTimer);
 
 
   play: function() {
-    this.previousSampleTime = new Date().getTime();
     this.currentlyPlaying = true; 
   },
 

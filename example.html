@@ -15,29 +15,36 @@
                 //
                 // Gerry Beauregard, March 2012
              
+var node_connected = true;
                 // Audio generation function            
-                function generateAudio(e) 
-                {
-                var phaseIncrement = 2 * Math.PI * freq / context.sampleRate;
-
-                    // Get the left and right output buffers
-                    var left  = e.outputBuffer.getChannelData(0);
-                    var right = e.outputBuffer.getChannelData(1);
-                     
-                    // For each output sample
-                    var numSamples = right.length;
-                    for (var i = 0; i < numSamples; i++) 
-                    {
-                        // Get a sine wave value
-                        var val = 0.1 * Math.sin(currentPhase);
-                         
-                        // Put it in the left and right buffer
-                        left[i] = val;
-                        right[i] = val;
-                         
-                        // Increment the phase
-                        currentPhase += phaseIncrement;
+                function generateAudio(e) {
+                  var time_int = parseInt(context.currentTime);
+                  node.connect(context.destination);
+  
+                  var phaseIncrement = 2 * Math.PI * freq / context.sampleRate;
+                  // Get the left and right output buffers
+                  var left  = e.outputBuffer.getChannelData(0);
+                  var right = e.outputBuffer.getChannelData(1);
+                  
+                  // For each output sample
+                  var numSamples = right.length;
+                  for (var i = 0; i < numSamples; i++) {
+                    var val = 0;
+                    if (time_int / 2 == Math.floor(time_int / 2)) {
+                      // Get a sine wave value
+                      val = 0.1 * Math.sin(currentPhase);
+                        
                     }
+                    
+                    
+                    // Put it in the left and right buffer
+                    left[i] = val;
+                    right[i] = val;
+                    // Increment the phase
+                    currentPhase += phaseIncrement;
+                    
+                  }
+  
                 }
                  
                 // ---------------------
@@ -56,7 +63,7 @@
                 const NUM_INPUTS = 1; // Works properly in Safari 6 
                  
                 // Frequency of the sine tone.          
-                var freq = 20000;
+                var freq = 440;
                  
                 // Create the audio context
                 var context = new webkitAudioContext();
@@ -70,9 +77,10 @@
                 // Set up the per-sample phase increment based on the desired 
                 // sine tone frequency and the sample rate of the audio context.
                 var currentPhase = 0.0;
-                 
+
                 // Connect the node to a destination, i.e. the audio output.
                 node.connect(context.destination);
+                 
                    
             </script>
     </head>
